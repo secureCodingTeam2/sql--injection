@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search</title>
+</head>
+<body>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" value="{{ query }}" name="q">
+        <button type="submit">submit</button>
+    </form>
+
+    {% if rows %}
+        <table>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <td>{{ row.1 }}</td>
+                    <td>{{ row.2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+#    {% else %}
+#     <p>No results found.</p>
+    {% endif %}
+</body>
+</html>

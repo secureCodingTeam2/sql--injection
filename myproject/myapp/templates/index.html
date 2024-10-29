@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search</title>
+</head>
+<body>
+    <form method="POST" action="">  <!--post 방식으로 전달 -->
+        {% csrf_token %}
+        <input type="text" value="{{ query }}" name="q">
+        <button type="submit">submit</button>
+    </form>
+
+    <!--rows가 존재하는지 확인하는 조건문. rows = db에서 조회한 결과의 리스트 -->
+    {% if rows %}
+        <table>         <!--검색 결과를 표 형식으로 표시하기 위해 사용-->
+            <thead>
+                <tr>    <!--행 정의-->
+                    <th>name</th>   <!--테이블 헤더 정의 name, score-->
+                    <th>score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}   <!-- rows의 각 항목에 대해 반복하여 처리-->
+                <tr>
+                    <td>{{ row.1 }}</td>   <!--첫 번째 필드(name)를 표시-->
+                    <td>{{ row.2 }}</td>   <!--두 번째 필드(score)를 표시-->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}     <!--조회결과가 없을 경우-->
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>
